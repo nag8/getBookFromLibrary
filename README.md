@@ -5,5 +5,5 @@
 - 大阪市図書館を想定
 
 ## 方法
-1. 読書メーターの「[読みたい本](https://bookmeter.com/users/763253/books/wish)」から情報をgoogle spreadsheetに転記
+1. 読書メーターの「[読みたい本](https://bookmeter.com/users/763253/books/wish)」から情報を[google spreadsheet](https://docs.google.com/spreadsheets/d/1xH_mE_R2g9L9QAUx8BVr_LuxhGQX9Ydwm9YofEXjkNg/edit?usp=sharing)に転記
 2. google spreadsheetの未予約のものを予約
