@@ -10,7 +10,8 @@
 
 ## memo
 ### goLang
-https://qiita.com/kou_pg_0131/items/dab4bcbb1df1271a17b6
+- https://qiita.com/kou_pg_0131/items/dab4bcbb1df1271a17b6
+- https://qiita.com/Yaruki00/items/b50e346551690b158a79
 
 ### python
-https://github.com/nag8/mixiPhotoDL/blob/master/mixi.py
+- https://github.com/nag8/mixiPhotoDL/blob/master/mixi.py
