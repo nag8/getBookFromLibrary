@@ -11,7 +11,7 @@ import (
 func main() {
 
 	fmt.Println("処理実行")
-	initFirebase()
+	dbc := initDB()
 	getBookList()
 }
 

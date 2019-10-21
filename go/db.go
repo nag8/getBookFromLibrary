@@ -1,41 +1,54 @@
 package main
 
 import (
-	"io/ioutil"
+	"context"
+	"log"
 
-	"github.com/gocarina/gocsv"
+	"cloud.google.com/go/firestore"
+	firebase "firebase.google.com/go"
+	"google.golang.org/api/option"
 )
 
-func ReadFromCsvFile(fileName string, out interface{}) {
-	var text string
-	ReadFromTextFile(fileName, &text)
-
-	err := gocsv.UnmarshalString(text, out)
-	if err != nil {
-		panic(err)
-	}
+type DBConfig struct {
+	ctx    context.Context
+	client firestore.Client
 }
 
-func WriteToCsvFile(fileName string, in interface{}) {
-	data, err := gocsv.MarshalString(in)
-	if err != nil {
-		panic(err)
-	}
-
-	WriteToTextFile(fileName, data)
+func newDBConfig(ctx context.Context, client firestore.Client) *DBConfig {
+	dbc := new(DBConfig)
+	dbc.ctx = ctx
+	dbc.client = client
+	return dbc
 }
 
-func ReadFromTextFile(fileName string, out interface{}) {
-	bytes, err := ioutil.ReadFile(fileName)
+func initDB() *DBConfig {
+
+	ctx := context.Background()
+	sa := option.WithCredentialsFile("go/config/gserviceaccount.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
-	*out.(*string) = string(bytes[:])
+
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	return newDBConfig(ctx, *client)
 }
 
-func WriteToTextFile(fileName string, in interface{}) {
-	err := ioutil.WriteFile(fileName, []byte(in.(string)), 0644)
+func addDB(dbc DBConfig) {
+
+	_, _, err := dbc.client.Collection("users").Add(dbc.ctx, map[string]interface{}{
+		"first": "Ada",
+		"last":  "Lovelace",
+		"born":  1815,
+	})
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed adding alovelace: %v", err)
 	}
+
+	// 切断
+	defer dbc.client.Close()
 }
