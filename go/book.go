@@ -2,8 +2,9 @@ package main
 
 // Book 本の構造体
 type Book struct {
-	id, status int
-	name       string
+	id     int    `firestore:"id"`
+	name   string `firestore:"name"`
+	status int    `firestore:"status"`
 }
 
 func newBook(id int, name string, status int) Book {

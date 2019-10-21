@@ -28,7 +28,10 @@ func getBookList(dbc DBConfig) {
 		url, _ := s.Attr("href")
 		id, _ := strconv.Atoi(strings.Trim(url, "/books/"))
 		b := newBook(id, s.Text(), 1)
-		addDB(dbc, b)
 
+		result, _ := seachDB(dbc, id)
+		if result == nil {
+			addDB(dbc, b)
+		}
 	})
 }

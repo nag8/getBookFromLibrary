@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"strconv"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -38,17 +40,42 @@ func initDB() DBConfig {
 	return newDBConfig(ctx, *client)
 }
 
+func seachDB(dbc DBConfig, id int) (*Book, error) {
+
+	db := dbc.client.Doc("books/" + strconv.Itoa(id))
+
+	docsnap, err := db.Get(dbc.ctx)
+	if err != nil {
+		return nil, err
+	}
+	dataMap := docsnap.Data()
+	fmt.Println(dataMap)
+
+	var b *Book
+
+	if err := docsnap.DataTo(&b); err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
 func addDB(dbc DBConfig, b Book) {
 
-	_, _, err := dbc.client.Collection("books").Add(dbc.ctx, map[string]interface{}{
-		"id":     b.id,
-		"name":   b.name,
-		"status": b.status,
-	})
+	db := dbc.client.Doc("books/" + strconv.Itoa(b.id))
+
+	wr, err := db.Create(dbc.ctx, b)
 	if err != nil {
 		log.Fatalf("Failed adding alovelace: %v", err)
 	}
+	fmt.Println(wr)
 
-	// 切断
-	defer dbc.client.Close()
+	// _, _, err := dbc.client.Collection("books").Add(dbc.ctx, map[string]interface{}{
+	// 	"id":     b.id,
+	// 	"name":   b.name,
+	// 	"status": b.status,
+	// })
+	// if err != nil {
+	// 	log.Fatalf("Failed adding alovelace: %v", err)
+	// }
 }
