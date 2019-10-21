@@ -12,10 +12,12 @@ func main() {
 
 	fmt.Println("処理実行")
 	dbc := initDB()
-	getBookList()
+	getBookList(dbc)
+
+	fmt.Println("処理終了")
 }
 
-func getBookList() {
+func getBookList(dbc DBConfig) {
 
 	doc, err := goquery.NewDocument("https://bookmeter.com/users/763253/books/wish")
 	if err != nil {
@@ -26,7 +28,7 @@ func getBookList() {
 		url, _ := s.Attr("href")
 		id, _ := strconv.Atoi(strings.Trim(url, "/books/"))
 		b := newBook(id, s.Text(), 1)
-		writeFireStore(ctx, client, b)
+		addDB(dbc, b)
 
 	})
 }

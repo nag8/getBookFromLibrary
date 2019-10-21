@@ -14,17 +14,17 @@ type DBConfig struct {
 	client firestore.Client
 }
 
-func newDBConfig(ctx context.Context, client firestore.Client) *DBConfig {
+func newDBConfig(ctx context.Context, client firestore.Client) DBConfig {
 	dbc := new(DBConfig)
 	dbc.ctx = ctx
 	dbc.client = client
-	return dbc
+	return *dbc
 }
 
-func initDB() *DBConfig {
+func initDB() DBConfig {
 
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("go/config/gserviceaccount.json")
+	sa := option.WithCredentialsFile("./config/gserviceaccount.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		log.Fatalln(err)
@@ -38,12 +38,12 @@ func initDB() *DBConfig {
 	return newDBConfig(ctx, *client)
 }
 
-func addDB(dbc DBConfig) {
+func addDB(dbc DBConfig, b Book) {
 
-	_, _, err := dbc.client.Collection("users").Add(dbc.ctx, map[string]interface{}{
-		"first": "Ada",
-		"last":  "Lovelace",
-		"born":  1815,
+	_, _, err := dbc.client.Collection("books").Add(dbc.ctx, map[string]interface{}{
+		"id":     b.id,
+		"name":   b.name,
+		"status": b.status,
 	})
 	if err != nil {
 		log.Fatalf("Failed adding alovelace: %v", err)
