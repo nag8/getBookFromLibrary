@@ -21,6 +21,7 @@
 - https://qiita.com/kou_pg_0131/items/dab4bcbb1df1271a17b6
 - https://qiita.com/Yaruki00/items/b50e346551690b158a79
 - https://firebase.google.com/docs/admin/setup?authuser=0
+- https://firebase.google.com/docs/firestore/quickstart?hl=ja
 
 ### python
 - https://github.com/nag8/mixiPhotoDL/blob/master/mixi.py
