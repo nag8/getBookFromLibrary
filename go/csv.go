@@ -1,15 +1,17 @@
+// https://github.com/mithrandie/csvq-driver
 package main
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
-	"time"
 
 	"github.com/mithrandie/csvq/lib/query"
+
+	_ "github.com/mithrandie/csvq-driver"
 )
 
-func main2() {
+func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -22,7 +24,7 @@ func main2() {
 			panic(err)
 		}
 	}()
-
+	
 	queryString := "SELECT id, first_name, country_code FROM `users.csv` WHERE id = '12'"
 	r := db.QueryRowContext(ctx, queryString)
 

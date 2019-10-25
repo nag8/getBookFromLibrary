@@ -23,5 +23,10 @@
 - https://firebase.google.com/docs/admin/setup?authuser=0
 - https://firebase.google.com/docs/firestore/quickstart?hl=ja
 
+#### cmd
+cd go
+go run main.go book.go csv.go
+
 ### python
 - https://github.com/nag8/mixiPhotoDL/blob/master/mixi.py
+
