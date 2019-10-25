@@ -17,6 +17,10 @@
    
    
 ## memo
+https://japan.flow.microsoft.com/manage/environments/406b1399-7294-4b63-9fc3-042173f84eb6/flows/df5d73b1-8368-41c9-81c1-1d850eff5e10/details
+### ruby
+
+
 ### goLang
 - https://qiita.com/kou_pg_0131/items/dab4bcbb1df1271a17b6
 - https://qiita.com/Yaruki00/items/b50e346551690b158a79
