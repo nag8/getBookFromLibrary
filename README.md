@@ -15,7 +15,7 @@
 
 ### ruby
 ```
-cd rb
+cd src
 ruby main.rb
 ```
 

@@ -9,5 +9,4 @@ class Book
     def getName
         return @name
     end
-
 end
