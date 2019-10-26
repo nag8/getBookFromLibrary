@@ -1,7 +1,13 @@
-class Book(object):
-    def __init__(self, title, id):
-        self.title = title
-        self.id = id
-        # self.auther = auther
-        # self.readed_date = readed_date
-        # self.page = page
+# coding: UTF-8
+class Book
+
+    def initialize(id, name)
+        @id = id
+        @name = name
+    end
+
+    def getName
+        return @name
+    end
+
+end
