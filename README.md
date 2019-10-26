@@ -18,3 +18,5 @@
 cd rb
 ruby main.rb
 ```
+
+- https://qiita.com/tomerun/items/9cb81d7a98150ff22f53
