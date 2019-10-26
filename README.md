@@ -12,6 +12,7 @@
 
 
 ## memo
+https://github.com/nag8/getBookFromLibrary/blob/ruby/README.md
 
 ### ruby
 ```
