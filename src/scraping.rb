@@ -7,12 +7,15 @@ require 'yaml'
 
 @wait_time = 3 
 @timeout = 4
+# TODO 設定ファイルに移す
+LIBRARY_NANIWA = 59
 
 def main
-    '処理開始'
+    p 'start...'
     config = getIniFile()
     driver = initDriver()
     bookBook(config, driver)
+    p 'end!'
 end
 
 def getIniFile
@@ -34,14 +37,24 @@ def bookBook(config, driver)
     driver.get('https://web.oml.city.osaka.lg.jp/webopac/mobmopsre.do')
     sleep 2
 
-    # driver.find_element(:name, 'valclm2').send_keys config['login']['id']
-
     driver.find_element(:name, 'valclm2').send_keys '生活者の平成30年'
     driver.find_element(:class, 'ui-btn-hidden').click
 
     sleep 2
+
+    # 書類詳細画面
+    # TODO 候補が複数あった場合以下のクラスは存在しない（はず）。そのため、if文で予約に進ませないようにする仕組みが必要
     driver.find_element(:class, 'ui-btn-hidden').click
 
+    # ログイン画面
+    driver.find_element(:name, 'userid').send_keys config['login']['id']
+    driver.find_element(:name, 'password').send_keys config['login']['password']
+    driver.find_element(:class, 'ui-btn-hidden').click
+
+    # 予約確認画面
+    select = Selenium::WebDriver::Support::Select.new(driver.find_element(:name, 'hopar'))
+    select.select_by(:value, LIBRARY_NANIWA)
+    # driver.find_element(:class, 'ui-btn-hidden').click
 
     # ドライバーを閉じる
     # driver.quit
