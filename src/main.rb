@@ -11,7 +11,11 @@ def main
 end
 
 def getBookList
-    
+
+    # TODO　spreadsheetから情報を取得
+
+    # TODO　spreadsheetから情報を取得
+
     # test
     book = Book.new(1, '生活者の平成30年')
     puts book.getName
