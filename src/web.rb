@@ -5,6 +5,7 @@ require './book'
 require 'selenium-webdriver'
 require 'yaml'
 require 'logger'
+require 'twitter'
 
 @wait_time = 3 
 @timeout = 4
@@ -46,7 +47,8 @@ def bookBook(bookList)
         driver.find_element(:class, 'ui-btn-hidden').click
 
         # ログイン画面
-        if driver.find_element(:name, 'userid').displayed?
+        if true
+        # if driver.find_element(:name, 'userid').displayed?
           driver.find_element(:name, 'userid').send_keys config['login']['id']
           driver.find_element(:name, 'password').send_keys config['login']['password']
           driver.find_element(:class, 'ui-btn-hidden').click
@@ -65,4 +67,36 @@ def bookBook(bookList)
   end
 
   driver.quit
+end
+
+def initTwitter
+
+  config = getIniFile
+
+  client = Twitter::REST::Client.new do |c|
+  c.consumer_key        = config['twitter']['consumerKey']
+  c.consumer_secret     = config['twitter']['consumerSeacret']
+  c.access_token        = config['twitter']['accessTocen']
+  c.access_token_secret = config['twitter']['accessSeacret']
+end
+
+def get_tweets
+
+  COUNT = 200
+
+  # countに満たないtweet数でも、エラーは起きない
+  epoc_count = (COUNT / 200) + 1
+
+  tweets = [@client.user_timeline(count: 1)][0]
+  epoc_count.times do
+    @client.user_timeline(count: 200, max_id: tweets.last.id-1).each do |t|
+      if tweets.count == count
+        break
+      end
+      tweets << t
+    end
+  end
+
+  # Array
+  tweets.map! {|t| t.text}
 end

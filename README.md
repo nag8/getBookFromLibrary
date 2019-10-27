@@ -21,3 +21,4 @@ ruby main.rb
 ```
 
 - https://qiita.com/tomerun/items/9cb81d7a98150ff22f53
+- https://qiita.com/hirohuntexp/items/4d43fba282d7dbc1b06d
