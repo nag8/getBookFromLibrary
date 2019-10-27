@@ -17,7 +17,7 @@ def getIniFile
 end
 
 def initDriver
-  Selenium::WebDriver.logger.output = File.join("./", "selenium.log")
+  Selenium::WebDriver.logger.output = File.join("./log/", "selenium.log")
   Selenium::WebDriver.logger.level = :warn
   driver = Selenium::WebDriver.for :chrome
   driver.manage.timeouts.implicit_wait = @timeout
@@ -57,7 +57,16 @@ def bookBook(bookList)
         # 予約確認画面
         select = Selenium::WebDriver::Support::Select.new(driver.find_element(:name, 'hopar'))
         select.select_by(:value, LIBRARY_NANIWA)
-        # driver.find_element(:class, 'ui-btn-hidden').click
+        driver.find_element(:class, 'ui-btn-hidden').click
+
+        # 最終確認画面
+        driver.find_element(:class, 'ui-btn-hidden').click
+
+        # TODO 完了画面の動作
+        if false
+          # 書籍検索画面へ
+          driver.find_element(:class, 'ui-icon-search').click
+        end
 
         status = Book::STATUS_SUCCESS
       end
@@ -67,36 +76,4 @@ def bookBook(bookList)
   end
 
   driver.quit
-end
-
-def initTwitter
-
-  config = getIniFile
-
-  client = Twitter::REST::Client.new do |c|
-  c.consumer_key        = config['twitter']['consumerKey']
-  c.consumer_secret     = config['twitter']['consumerSeacret']
-  c.access_token        = config['twitter']['accessTocen']
-  c.access_token_secret = config['twitter']['accessSeacret']
-end
-
-def get_tweets
-
-  COUNT = 200
-
-  # countに満たないtweet数でも、エラーは起きない
-  epoc_count = (COUNT / 200) + 1
-
-  tweets = [@client.user_timeline(count: 1)][0]
-  epoc_count.times do
-    @client.user_timeline(count: 200, max_id: tweets.last.id-1).each do |t|
-      if tweets.count == count
-        break
-      end
-      tweets << t
-    end
-  end
-
-  # Array
-  tweets.map! {|t| t.text}
 end

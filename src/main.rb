@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 require './book'
-require './scraping'
+require './web'
 require './db'
 
 def main
@@ -17,7 +17,7 @@ def getBookList
 
 
   # test
-  book = Book.new(1, '生活者の平成30年')
+  book = Book.new(1, 'ミレニアム 復讐の炎を吐く女　下')
   puts book.getName
   bookList = [book]
 end
