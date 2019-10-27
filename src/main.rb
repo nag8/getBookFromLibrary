@@ -2,11 +2,12 @@
 
 require './book'
 require './scraping'
+require './db'
 
 def main
   p 'start...'
-  bookList = getBookList()
-  bookBook(bookList)
+  bookList = getBookList
+  bookBook bookList
   p 'end!'
 end
 
@@ -14,12 +15,11 @@ def getBookList
 
   # TODO　spreadsheetから情報を取得
 
-  # TODO　spreadsheetから情報を取得
 
   # test
   book = Book.new(1, '生活者の平成30年')
   puts book.getName
-  return book
+  bookList = [book]
 end
 
 if __FILE__ == $0
