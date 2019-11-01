@@ -5,28 +5,20 @@
 - 大阪市図書館を想定
 
 ## 方法
-### 1
-1. 読書メーターの「[読みたい本](https://bookmeter.com/users/763253/books/wish)」から情報を[firebase](https://console.firebase.google.com/u/0/project/bookbook-eaf17/database/bookbook-eaf17/data)に転記
-2. firebaseの未予約のものを予約
-
-### 2
-1. ユーザーが読書メーターの「[読みたい本](https://bookmeter.com/users/763253/books/wish)」に情報を登録
-2. プログラムが「読みたい本」から[firebase](https://console.firebase.google.com/u/0/project/bookbook-eaf17/database/bookbook-eaf17/data)に情報を転記
-3. プログラムがfirebaseから[カーリル](https://calil.jp/)に転記
+1. ユーザーがブクログの「[読みたい本](https://booklog.jp/users/35d54b5702603b20)」に情報を登録
+2. [microsoft flow](https://japan.flow.microsoft.com/manage/environments/406b1399-7294-4b63-9fc3-042173f84eb6/flows/df5d73b1-8368-41c9-81c1-1d850eff5e10/details)が読書メーターの投稿twitterから[google spreadsheet](https://docs.google.com/spreadsheets/d/1dtuq7_muh5k2opEVKz-ODfkuSRDsAacGyW8upmADv3w/edit?usp=sharing)に転記
+3. 当プログラムがspreadsheetから図書館サイトに転記
 4. 画面遷移に沿って予約
-   
-   
+
+
 ## memo
-### goLang
-- https://qiita.com/kou_pg_0131/items/dab4bcbb1df1271a17b6
-- https://qiita.com/Yaruki00/items/b50e346551690b158a79
-- https://firebase.google.com/docs/admin/setup?authuser=0
-- https://firebase.google.com/docs/firestore/quickstart?hl=ja
+https://github.com/nag8/getBookFromLibrary/blob/ruby/README.md
 
-#### cmd
-cd go
-go run main.go book.go csv.go
+### ruby
+```
+cd src
+ruby main.rb
+```
 
-### python
-- https://github.com/nag8/mixiPhotoDL/blob/master/mixi.py
-
+- https://qiita.com/tomerun/items/9cb81d7a98150ff22f53
+- https://qiita.com/hirohuntexp/items/4d43fba282d7dbc1b06d
