@@ -1,2 +1,3 @@
 config
 src/log/selenium.log
+db/db.csv
