@@ -11,9 +11,7 @@ def readCSV
   csv.readline
 
   csv.each do |row|
-    book = Book.new(row[1], row[0])
-    puts book.getName
-    puts book.getStatus
+    book = Book.new(row[0], row[1], row[2])
   end
 end
 
@@ -22,7 +20,7 @@ def writeCSV(bookList)
   config = getIniFile
 
   CSV.open(config['db']['csv'],'w') do |row|
-    row << ["タイトル","ステータス"]
+    row << ["id","タイトル","ステータス"]
     bookList.each do |b|
       row << [b.getName, b.getStatus]
     end

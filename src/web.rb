@@ -5,6 +5,8 @@ require './main'
 
 require 'selenium-webdriver'
 require 'logger'
+require 'nokogiri'
+require 'open-uri'
 
 @wait_time = 3
 @timeout = 4
@@ -23,23 +25,27 @@ end
 def getBookData
 
   config = getIniFile
-  driver = initDriver
 
-  driver.get 'https://bookmeter.com/users/763253/books/wish'
-
-  begin
-
-    wait.until { driver.find_elements('div.thumbnail__action > div').displayed? }
-    elements = driver.find_elements('div.thumbnail__action > div')
-    puts elements
-    elements.each do |element|
-      puts element.data-modal
-    end
-  rescue
-    # TODO ログ出力
+  charset = nil
+  html = open(config['bookMeter']['url']) do |f|
+    charset = f.charset
+    f.read
   end
 
-  driver.quit
+  doc = Nokogiri::HTML.parse(html, nil, charset)
+
+  bookList = []
+
+  doc.xpath('//img[@class="cover__image"]').each do |node|
+
+    book = Book.new(
+      node.parent.attribute('href').to_s.delete!('/books/'),
+      node.attribute('alt'),
+      Book::STATUS_YET)
+    
+    bookList.push(book)
+  end
+  bookList
 end
 
 def bookBook(bookList)
