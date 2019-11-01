@@ -7,7 +7,7 @@ require 'yaml'
 require 'logger'
 require 'twitter'
 
-@wait_time = 3 
+@wait_time = 3
 @timeout = 4
 # TODO 設定ファイルに移す
 LIBRARY_NANIWA = '59'

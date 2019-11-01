@@ -7,18 +7,18 @@ require './db'
 def main
   p 'start...'
   bookList = getBookList
-  bookBook bookList
+  # bookBook bookList
   p 'end!'
 end
 
 def getBookList
 
   # TODO　spreadsheetから情報を取得
-
-
-  # test
-  book = Book.new(1, 'ミレニアム 復讐の炎を吐く女　下')
-  puts book.getName
+  unless ARGV[0] == nil
+    book = Book.new(1, ARGV[0])
+  else
+    book = Book.new(1, 'Vue.js入門 基礎から実践アプリケーション開発まで')
+  end
   bookList = [book]
 end
 
