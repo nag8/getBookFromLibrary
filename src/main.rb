@@ -3,6 +3,7 @@
 require './book'
 require './web'
 require './db'
+require 'yaml'
 
 def main
   p 'start...'
@@ -20,6 +21,10 @@ def getBookList
     book = Book.new(1, 'Vue.js入門 基礎から実践アプリケーション開発まで')
   end
   bookList = [book]
+end
+
+def getIniFile
+  YAML.load_file './config/config.yml'
 end
 
 if __FILE__ == $0

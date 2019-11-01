@@ -1,20 +1,15 @@
 # coding: UTF-8
 
 require './book'
+require './main'
 
 require 'selenium-webdriver'
-require 'yaml'
 require 'logger'
-require 'twitter'
 
 @wait_time = 3
 @timeout = 4
 # TODO 設定ファイルに移す
 LIBRARY_NANIWA = '59'
-
-def getIniFile
-  YAML.load_file './config/config.yml'
-end
 
 def initDriver
   Selenium::WebDriver.logger.output = File.join("./log/", "selenium.log")
@@ -23,6 +18,28 @@ def initDriver
   driver.manage.timeouts.implicit_wait = @timeout
   wait = Selenium::WebDriver::Wait.new(timeout: @wait_time)
   driver
+end
+
+def getBookData
+
+  config = getIniFile
+  driver = initDriver
+
+  driver.get 'https://bookmeter.com/users/763253/books/wish'
+
+  begin
+
+    wait.until { driver.find_elements('div.thumbnail__action > div').displayed? }
+    elements = driver.find_elements('div.thumbnail__action > div')
+    puts elements
+    elements.each do |element|
+      puts element.data-modal
+    end
+  rescue
+    # TODO ログ出力
+  end
+
+  driver.quit
 end
 
 def bookBook(bookList)
@@ -47,8 +64,7 @@ def bookBook(bookList)
         driver.find_element(:class, 'ui-btn-hidden').click
 
         # ログイン画面
-        if true
-        # if driver.find_element(:name, 'userid').displayed?
+        if driver.find_elements(:name, 'userid').size >= 1
           driver.find_element(:name, 'userid').send_keys config['login']['id']
           driver.find_element(:name, 'password').send_keys config['login']['password']
           driver.find_element(:class, 'ui-btn-hidden').click
@@ -68,7 +84,7 @@ def bookBook(bookList)
           driver.find_element(:class, 'ui-icon-search').click
         end
 
-        status = Book::STATUS_SUCCESS
+        status = Book::STATUS_RESERVED
       end
     rescue
       status = Book::STATUS_ERROR
@@ -76,4 +92,8 @@ def bookBook(bookList)
   end
 
   driver.quit
+end
+
+if __FILE__ == $0
+  getBookData
 end
