@@ -8,7 +8,7 @@ require 'yaml'
 def main
   p 'start...'
   bookList = getBookList
-  # bookBook bookList
+  bookBook bookList
   p 'end!'
 end
 
@@ -18,7 +18,7 @@ def getBookList
   unless ARGV[0] == nil
     book = Book.new(1, ARGV[0], Book::STATUS_YET)
   else
-    book = Book.new(1, 'Vue.js入門 基礎から実践アプリケーション開発まで', Book::STATUS_YET)
+    book = Book.new(1, 'RSpecによるRailsテスト入門', Book::STATUS_YET)
   end
   bookList = [book]
 end
