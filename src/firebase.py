@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+from models import Book
 
 
 
@@ -12,7 +13,7 @@ firebase_admin.initialize_app(cred, {
     }
 })
 
-books_ref = db.reference('/books')
+ref = db.reference('/books')
 
 # users_ref.set({
 #     'user001': {
@@ -33,14 +34,17 @@ books_ref = db.reference('/books')
 
 ##データを取得する
 def readBooks():
-    print(books_ref.get())
+    return ref.get()
     
 ##データを取得する
-def addBook():
-    books_ref.child('testID').set({
-        'date_of_birth': 'Aug 23, 1980',
-        'full_name': 'Masuo Isono'
-    })
+def addBook(book):
+    ref = db.reference('/books/' + book.id)
+    if ref.get() is None:
+        ref.set({
+            'name': book.name,
+            'auther': book.auther,
+            'status': book.status
+        })
 
 
 # ##データを更新する
