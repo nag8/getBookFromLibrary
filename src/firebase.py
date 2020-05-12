@@ -13,8 +13,6 @@ firebase_admin.initialize_app(cred, {
     }
 })
 
-ref = db.reference('/books')
-
 # users_ref.set({
 #     'user001': {
 #         'date_of_birth': 'June 23, 1984',
@@ -34,7 +32,18 @@ ref = db.reference('/books')
 
 ##データを取得する
 def readBooks():
-    return ref.get()
+    books = db.reference('/books').order_by_child('status').equal_to(0).get()
+    list = []
+    for id in books:
+        book = Book(
+            id,
+            books[id]['name'],
+            books[id]['auther'],
+            books[id]['status'])
+        
+        list.append(book)
+    
+    return list
     
 ##データを取得する
 def addBook(book):
