@@ -1,2 +1,4 @@
 config
 src/log/selenium.log
+src/__pycache__/firebase.cpython-38.pyc
+bk
