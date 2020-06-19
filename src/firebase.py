@@ -5,7 +5,7 @@ from models import Book
 
 
 
-cred = credentials.Certificate("../config/serviceAccountKey.json")
+cred = credentials.Certificate("config/serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://bookbook-eaf17.firebaseio.com/',
     'databaseAuthVariableOverride': {
